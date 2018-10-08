@@ -14,53 +14,8 @@ void renderScene() {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	gluLookAt(0.5, 0.5, 0.5, 0, 0, 0, 0, 1, 0);
 	glColor3f(1.0, 0.0, 0.0);
 	glutWireCube(1.0);
-
-	
-	/*
-	GLfloat vertices[8][3] = { { -1, -1, 1 }, { -1, 1, 1 },
-	{ 1, 1, 1 }, { 1, -1, 1 }, { -1, -1, -1 },
-	{ -1, 1, -1 }, { 1, 1, -1 }, { 1, -1, -1 } };
-
-	GLfloat colors[8][3] = { { 0, 0, 1 }, { 0, 1, 1 },
-	{ 1, 1, 1 }, { 1, 0, 1 },	{ 0, 0, 0 },
-	{ 0, 1, 0 },	{ 1, 1, 0 }, { 1, 0, 0 } };		
-
-	glBegin(GL_QUADS);
-
-	glColor3fv(colors[0]); glVertex3fv(vertices[0]);
-	glColor3fv(colors[3]); glVertex3fv(vertices[3]);
-	glColor3fv(colors[2]); glVertex3fv(vertices[2]);
-	glColor3fv(colors[1]); glVertex3fv(vertices[1]);
-
-	glColor3fv(colors[2]); glVertex3fv(vertices[2]);
-	glColor3fv(colors[3]); glVertex3fv(vertices[3]);
-	glColor3fv(colors[7]); glVertex3fv(vertices[7]);
-	glColor3fv(colors[6]); glVertex3fv(vertices[6]);
-
-	glColor3fv(colors[3]); glVertex3fv(vertices[3]);
-	glColor3fv(colors[0]); glVertex3fv(vertices[0]);
-	glColor3fv(colors[4]); glVertex3fv(vertices[4]);
-	glColor3fv(colors[7]); glVertex3fv(vertices[7]);
-
-	glColor3fv(colors[1]); glVertex3fv(vertices[1]);
-	glColor3fv(colors[2]); glVertex3fv(vertices[2]);
-	glColor3fv(colors[6]); glVertex3fv(vertices[6]);
-	glColor3fv(colors[5]); glVertex3fv(vertices[5]);
-
-	glColor3fv(colors[4]); glVertex3fv(vertices[4]);
-	glColor3fv(colors[5]); glVertex3fv(vertices[5]);
-	glColor3fv(colors[6]); glVertex3fv(vertices[6]);
-	glColor3fv(colors[7]); glVertex3fv(vertices[7]);
-
-	glColor3fv(colors[5]); glVertex3fv(vertices[5]);
-	glColor3fv(colors[4]); glVertex3fv(vertices[4]);
-	glColor3fv(colors[0]); glVertex3fv(vertices[0]);
-	glColor3fv(colors[1]); glVertex3fv(vertices[1]);
-	glEnd();
-*/
 
 	glutSwapBuffers();
 }

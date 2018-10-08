@@ -8,60 +8,22 @@ static bool mouseLeftDown;
 static float point[2][2];
 
 static float theta;
-void renderScene() {
+void RenderScene(void)
+{
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-
-	gluLookAt(0.5, 0.5, 0.5, 0, 0, 0, 0, 1, 0);
-	glColor3f(1.0, 0.0, 0.0);
-	glutWireCube(1.0);
-
-	
-	/*
-	GLfloat vertices[8][3] = { { -1, -1, 1 }, { -1, 1, 1 },
-	{ 1, 1, 1 }, { 1, -1, 1 }, { -1, -1, -1 },
-	{ -1, 1, -1 }, { 1, 1, -1 }, { 1, -1, -1 } };
-
-	GLfloat colors[8][3] = { { 0, 0, 1 }, { 0, 1, 1 },
-	{ 1, 1, 1 }, { 1, 0, 1 },	{ 0, 0, 0 },
-	{ 0, 1, 0 },	{ 1, 1, 0 }, { 1, 0, 0 } };		
-
-	glBegin(GL_QUADS);
-
-	glColor3fv(colors[0]); glVertex3fv(vertices[0]);
-	glColor3fv(colors[3]); glVertex3fv(vertices[3]);
-	glColor3fv(colors[2]); glVertex3fv(vertices[2]);
-	glColor3fv(colors[1]); glVertex3fv(vertices[1]);
-
-	glColor3fv(colors[2]); glVertex3fv(vertices[2]);
-	glColor3fv(colors[3]); glVertex3fv(vertices[3]);
-	glColor3fv(colors[7]); glVertex3fv(vertices[7]);
-	glColor3fv(colors[6]); glVertex3fv(vertices[6]);
-
-	glColor3fv(colors[3]); glVertex3fv(vertices[3]);
-	glColor3fv(colors[0]); glVertex3fv(vertices[0]);
-	glColor3fv(colors[4]); glVertex3fv(vertices[4]);
-	glColor3fv(colors[7]); glVertex3fv(vertices[7]);
-
-	glColor3fv(colors[1]); glVertex3fv(vertices[1]);
-	glColor3fv(colors[2]); glVertex3fv(vertices[2]);
-	glColor3fv(colors[6]); glVertex3fv(vertices[6]);
-	glColor3fv(colors[5]); glVertex3fv(vertices[5]);
-
-	glColor3fv(colors[4]); glVertex3fv(vertices[4]);
-	glColor3fv(colors[5]); glVertex3fv(vertices[5]);
-	glColor3fv(colors[6]); glVertex3fv(vertices[6]);
-	glColor3fv(colors[7]); glVertex3fv(vertices[7]);
-
-	glColor3fv(colors[5]); glVertex3fv(vertices[5]);
-	glColor3fv(colors[4]); glVertex3fv(vertices[4]);
-	glColor3fv(colors[0]); glVertex3fv(vertices[0]);
-	glColor3fv(colors[1]); glVertex3fv(vertices[1]);
+	float cos_th = cos(theta*3.14159 / 180.0);
+	float sin_th = sin(theta*3.14159 / 180.0);
+	glColor3f(1, 0, 0);
+	glBegin(GL_POLYGON);
+	{
+		glVertex2f(cos_th, sin_th);
+		glVertex2f(-sin_th, cos_th);
+		glVertex2f(-cos_th, -sin_th);
+		glVertex2f(sin_th, -cos_th);
+	}
 	glEnd();
-*/
-
+	/*glFlush();*/
 	glutSwapBuffers();
 }
 void timer(int value) {
@@ -161,8 +123,7 @@ int main(int argc, char* argv[]) {
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 	glutInitWindowSize(600, 600);
 	glutCreateWindow("Simple");
-	glutDisplayFunc(renderScene);
-
+	glutDisplayFunc(RenderScene);
 	glutReshapeFunc(ChangeSize);
 
 	glutMouseFunc(mouseButton);
