@@ -93,7 +93,7 @@ void ChangeSize(int w, int h)
 		h = 1;
 
 
-	glViewport(0, 0, w, h); //½ÇÁ¦·Î º¸ÀÌ´Â È­¸éÀÇ Å©±â(À©µµ¿ìÃ¢°ú º°°³)
+	glViewport(0, 0, w, h); //ì‹¤ì œë¡œ ë³´ì´ëŠ” í™”ë©´ì˜ í¬ê¸°(ìœˆë„ìš°ì°½ê³¼ ë³„ê°œ)
 
 
 	glMatrixMode(GL_PROJECTION);
@@ -174,7 +174,7 @@ void mouseMotion(int x, int y)
 int main(int argc, char* argv[])
 {
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB); // µğ½ºÇÃ·¹ÀÌ¸ğµå ¼³Á¤
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB); // ë””ìŠ¤í”Œë ˆì´ëª¨ë“œ ì„¤ì •
 	glutInitWindowSize(500, 500);
 	glutCreateWindow("Simple");
 	glutInitWindowPosition(0, 0);

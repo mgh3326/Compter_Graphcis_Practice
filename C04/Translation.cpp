@@ -8,92 +8,62 @@ static bool mouseLeftDown;
 static float point[2][2];
 
 static float theta;
-
-GLUquadricObj* p;
-
-void base(void)
-{
-	glPushMatrix();
-	glColor3f(1, 0, 0);
-	glRotatef(-90, 1, 0, 0);
-	gluCylinder(p, 0.5, 0.5, 0.3, 20, 1);
-	glPopMatrix();
-}
-
-void lower_arm(void)
-{
-	glPushMatrix();
-	glColor3f(0, 1, 0);
-	glTranslatef(0, 0.5, 0);
-	glScalef(0.2, 1, 0.2);
-	glutWireCube(1);
-	glPopMatrix();
-}
-
-void upper_arm(void)
-{
-	glPushMatrix();
-	glColor3f(0, 0, 1);
-	glTranslatef(0, 0.4, 0);
-	glScalef(0.2, 0.8, 0.2);
-	glutWireCube(1);
-	glPopMatrix();
-}
-
-void renderScene()
-{
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+void renderScene() {
+	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
 	gluLookAt(0.5, 0.5, 0.5, 0, 0, 0, 0, 1, 0);
-	base();
-	lower_arm();
-	upper_arm();
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glutWireTetrahedron();
+
+
+	glTranslatef(0.0f, 1.0f, 0.0f);
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glutWireCube(0.5);
 
 	glutSwapBuffers();
 }
-
-void timer(int value)
-{
+void timer(int value) {
 	theta += 2.0;
 	if (theta >= 360.0)
 		theta -= 360.0;
 	glutPostRedisplay();
 	glutTimerFunc(1000 / 30, timer, 1);
-}
 
-void keyboard(unsigned char c, int x, int y)
-{
-	switch (c)
+}
+void keyboard(unsigned char key, int x, int y) {
+	switch (key)
 	{
+	case  'q' | 'Q':
+		exit(0); break;
 	case VK_ESCAPE:
-		gluDeleteQuadric(p);
-		exit(0);
+		exit(0); break;
+	default:
+		break;
 	}
 }
-
-void init(void)
-{
-	p = gluNewQuadric();
-	gluQuadricDrawStyle(p, GLU_LINE);
+void init(void) {
+	theta = 0.0f;
+	glutTimerFunc(1000 / 30, timer, 1);
 }
-
-void SetupRC(void)
-{
+void SetupRC(void) {
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 	glEnable(GL_DEPTH_TEST);
-}
 
-void ChangeSize(int w, int h)
-{
+}
+void ChangeSize(int w, int h) {
+
+
 	if (h == 0)
 
 		h = 1;
 
 
-	glViewport(0, 0, w, h); //½ÇÁ¦·Î º¸ÀÌ´Â È­¸éÀÇ Å©±â(À©µµ¿ìÃ¢°ú º°°³)
+
+	glViewport(0, 0, w, h); //ì‹¤ì œë¡œ ë³´ì´ëŠ” í™”ë©´ì˜ í¬ê¸°(ìœˆë„ìš°ì°½ê³¼ ë³„ê°œ)
+
 
 
 	glMatrixMode(GL_PROJECTION);
@@ -101,32 +71,34 @@ void ChangeSize(int w, int h)
 	glLoadIdentity();
 
 
+
 	if (w <= h)
 
 	{
-		glOrtho(-2.0, 2.0, -2.0 * (float)h / (float)w, 2.0 * (float)h / (float)w, -10.0, 10.0);
+
+		glOrtho(-2.0, 2.0, -2.0*(float)h / (float)w, 2.0*(float)h / (float)w, -10.0, 10.0);
+
 	}
 
 	else
 
 	{
-		glOrtho(-2.0 * (float)w / (float)h, 2.0 * (float)w / (float)h, -2.0, 2.0, -10.0, 10.0);
+
+		glOrtho(-2.0*(float)w / (float)h, 2.0*(float)w / (float)h, -2.0, 2.0, -10.0, 10.0);
+
 	}
+
 
 
 	glMatrixMode(GL_MODELVIEW);
 
 	glLoadIdentity();
-}
 
-void mouseButton(int button, int state, int x, int y)
-{
-	if (button == GLUT_LEFT_BUTTON)
-	{
-		if (state == GLUT_DOWN)
-		{
-			if (!mouseLeftDown)
-			{
+}
+void mouseButton(int button, int state, int x, int y) {
+	if (button == GLUT_LEFT_BUTTON) {
+		if (state == GLUT_DOWN) {
+			if (!mouseLeftDown) {
 				double viewport[4];
 				glGetDoublev(GL_VIEWPORT, viewport);
 
@@ -138,43 +110,37 @@ void mouseButton(int button, int state, int x, int y)
 				mouseLeftDown = true;
 			}
 		}
-		else if (state == GLUT_UP)
-		{
-			if (mouseLeftDown)
-			{
+		else if (state == GLUT_UP) {
+			if (mouseLeftDown) {
 				mouseLeftDown = false;
 			}
 		}
 	}
-	else if (button == GLUT_RIGHT_BUTTON)
-	{
-		if (state == GLUT_DOWN)
-		{
+	else if (button == GLUT_RIGHT_BUTTON) {
+		if (state == GLUT_DOWN) {
+
 		}
-		else if (state == GLUT_UP)
-		{
+		else if (state == GLUT_UP) {
+
 		}
 	}
 	glutPostRedisplay();
-}
 
-void mouseMotion(int x, int y)
-{
-	if (mouseLeftDown)
-	{
+}
+void mouseMotion(int x, int y) {
+	if (mouseLeftDown) {
 		double viewport[4];
 		glGetDoublev(GL_VIEWPORT, viewport);
 
 		point[0][0] = x / (float)viewport[2] * 500;
 		point[0][1] = (viewport[3] - y) / (float)viewport[3] * 500;
+
 	}
 	glutPostRedisplay();
 }
-
-int main(int argc, char* argv[])
-{
+int main(int argc, char* argv[]) {
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB); // µğ½ºÇÃ·¹ÀÌ¸ğµå ¼³Á¤
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB); // ë””ìŠ¤í”Œë ˆì´ëª¨ë“œ ì„¤ì •
 	glutInitWindowSize(500, 500);
 	glutCreateWindow("Simple");
 	glutInitWindowPosition(0, 0);
