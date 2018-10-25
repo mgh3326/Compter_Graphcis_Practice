@@ -170,26 +170,67 @@ void mouseMotion(int x, int y)
 	}
 	glutPostRedisplay();
 }
+void display(void)
+{
+	// clear screen and depth buffer
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glLoadIdentity();
 
+	// camera view configuration 
+	gluLookAt(3.f, 3.f, 3.f, 0.f, 0.f, 0.f, 0.f, 1.f, 0.f);
+	// draw
+	glColor3f(1.f, 0.f, 0.f); // 빨간색 지정
+	glBegin(GL_LINE_LOOP); // x축 그리기
+	glVertex3f(10.0, 0.0, 0.0); // 시작 점
+	glVertex3f(0, 0.0, 0.0); // 끝 점
+	glEnd();
+
+
+	glColor3f(0.f, 1.f, 0.f); // 초록색 지정
+	glBegin(GL_LINE_LOOP); // y축 그리기
+	glVertex3f(0.0, 10.0, 0.0);
+	glVertex3f(0.0, 0, 0.0);
+	glEnd();
+
+	glColor3f(0.f, 0.f, 1.f); // 파란색 지정
+	glBegin(GL_LINE_LOOP); // z축 그리기
+	glVertex3f(0.0, 0.0, 10.0);
+	glVertex3f(0.0, 0.0, 0);
+	glEnd();
+
+
+	glFlush();
+}
 int main(int argc, char* argv[])
 {
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB); // 디스플레이모드 설정
+	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB); // 디스플레이모드 설정 // 왜 싱글로 해야되지
 	glutInitWindowSize(500, 500);
 	glutCreateWindow("Simple");
 	glutInitWindowPosition(0, 0);
+	glClearColor(255.0, 255.0, 255.0, 0.0);//alpha?
 
-	glutDisplayFunc(renderScene);
+	/*glShadeModel(GL_FLAT);*/
+/*
+	RenderState* rsp = new RenderState();
+	rs = *rsp;*/
 
-	glutReshapeFunc(ChangeSize);
+	glutDisplayFunc(display);
+
+	/*glutReshapeFunc(ChangeSize);
 
 
 	glutMouseFunc(mouseButton);
 	glutMotionFunc(mouseMotion);
 	glutTimerFunc(1000 / 30, timer, 1);
-	glutKeyboardFunc(keyboard);
-	init();
+	glutKeyboardFunc(keyboard);*/
+	/*init();*/
 
-	SetupRC();
+	/*SetupRC();*/
+	/*glViewport(0, 0, (GLsizei)500, (GLsizei)500);*/
+	glMatrixMode(GL_PROJECTION);//이거 밑은 무엇을 의미하는걸까
+	glLoadIdentity();
+	glFrustum(-1.0, 1.0, -1.0, 1.0, 1.5, 20.0);
+	glMatrixMode(GL_MODELVIEW);
 	glutMainLoop();
 }
